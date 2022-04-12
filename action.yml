@@ -6,11 +6,13 @@ branding:
 inputs:
   only:
     description: 'Space separated list of tools to install'
-    required: false
+    required: true
     default: ''
 runs:
   using: 'docker'
   image: 'docker://nicholasdille/docker-setup:1.4.2'
   args:
+  - '--no-wait'
+  - '--skip-docs'
   - '--only'
   - ${{ inputs.only }}
