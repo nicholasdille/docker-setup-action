@@ -1,0 +1,65 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "enabledManagers": [
+    "dockerfile",
+    "github-actions",
+    "regex"
+  ],
+  "docker": {
+    "pinDigests": true
+  },
+  "automergeType": "pr",
+  "platformAutomerge": true,
+  "ignoreTests": false,
+  "rebaseWhen": "conflicted",
+  "rebaseLabel": "renovate/rebase",
+  "stopUpdatingLabel": "renovate/stop-updating",
+  "recreateClosed": false,
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
+  "major": {
+    "labels": [
+      "type/renovate",
+      "bump/major"
+    ]
+  },
+  "minor": {
+    "labels": [
+      "type/renovate",
+      "bump/minor"
+    ]
+  },
+  "patch": {
+    "labels": [
+      "type/renovate",
+      "bump/patch"
+    ]
+  },
+  "pin": {
+    "labels": [
+      "type/renovate",
+      "bump/pin"
+    ]
+  },
+  "digest": {
+    "labels": [
+      "type/renovate",
+      "bump/digest"
+    ]
+  },
+  "packageRules": [
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "updateTypes": [
+        "pin",
+        "digest"
+      ],
+      "automerge": true
+    }
+  ]
+}
