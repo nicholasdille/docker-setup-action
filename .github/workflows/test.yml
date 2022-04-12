@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: nicholasdille/docker-setup-action@master
+        uses: nicholasdille/docker-setup-action@main
