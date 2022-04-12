@@ -1,17 +1,16 @@
 name: 'docker-setup'
 description: 'Install tools from the container ecosystem'
+branding:
+  icon: 'package'
+  color: 'blue'
 inputs:
   only:
-    description: 'Tools to install'
-    required: false
-    default: ''
-  tags:
-    description: 'Tools with tag to install'
+    description: 'Space separated list of tools to install'
     required: false
     default: ''
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://nicholasdille/docker-setup:1.4.2'
   args:
+  - '--only'
   - ${{ inputs.only }}
-  - ${{ inputs.tags }}
