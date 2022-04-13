@@ -34,7 +34,7 @@ runs:
       echo "Requested version ${{ inputs.version }}"
 
       url="https://github.com/nicholasdille/docker-setup/releases/latest/download/docker-setup.sh"
-      if test "${{ inputs.version }}" != "lastest"; then
+      if test "${{ inputs.version }}" != "latest"; then
           url="https://github.com/nicholasdille/docker-setup/releases/download/v${{ inputs.version }}/docker-setup.sh"
       fi
 
