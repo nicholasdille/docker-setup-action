@@ -28,6 +28,12 @@ runs:
   using: 'composite'
   steps:
 
+  - name: Debug info
+    shell: bash
+    run: |
+      whoami
+      ls -al /var/cache /var/log
+
   - name: Install docker-setup
     shell: bash
     run: |
