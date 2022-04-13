@@ -10,7 +10,8 @@ jobs:
     name: Test
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout
+      - name: Install
         uses: nicholasdille/docker-setup-action@main
         with:
-          only: "docker yq"
+          only: true
+          list: "docker yq"
