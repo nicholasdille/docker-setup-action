@@ -32,7 +32,8 @@ runs:
     shell: bash
     run: |
       whoami
-      ls -al /var/cache /var/log
+      sudo -l
+      ls -al /var /usr/local
 
   - name: Install docker-setup
     shell: bash
