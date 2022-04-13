@@ -4,15 +4,59 @@ branding:
   icon: 'package'
   color: 'blue'
 inputs:
+  version:
+    description: 'Version of docker-setup to use'
+    required: false
+    default: 'latest'
+  check:
+    description: 'Check after installation'
+    required: false
+    default: 'false'
   only:
-    description: 'Space separated list of tools to install'
-    required: true
+    description: 'Only install tools specified by <list>'
+    required: false
+    default: 'false'
+  tags:
+    description: 'Only install tools with tags specified by <list>'
+    required: false
+    default: 'false'
+  list:
+    description: 'Tool names or tags (requires <only> or <tags>)'
+    required: false
     default: ''
 runs:
-  using: 'docker'
-  image: 'docker://nicholasdille/docker-setup:1.4.2'
-  args:
-  - '--no-wait'
-  - '--skip-docs'
-  - '--only'
-  - ${{ inputs.only }}
+  using: 'composite'
+  steps:
+
+  - name: Install docker-setup
+    shell: bash
+    run: |
+      url="https://github.com/nicholasdille/docker-setup/releases/latest/download/docker-setup.sh"
+      if test "${{ inputs.version }}" != "lastest"; then
+          url="https://github.com/nicholasdille/docker-setup/releases/download/v${{ inputs.version }}/docker-setup.sh"
+      fi
+
+      curl "${url}" \
+          --silent \
+          --location \
+          --output /usr/local/bin/docker-setup
+      chmod +x /usr/local/bin/docker-setup
+
+  - name: Install tools
+    env:
+      no_wait: "true"
+      only: ${{ inputs.only }}
+      tags: ${{ inputs.check }}
+    shell: bash
+    run: |
+      docker-setup ${{ inputs.list }}
+
+  - name: Check installed tools
+    if: ${{ inputs.check }}
+    env:
+      check: "true"
+      only: ${{ inputs.only }}
+      tags: ${{ inputs.check }}
+    shell: bash
+    run: |
+      docker-setup ${{ inputs.list }}
