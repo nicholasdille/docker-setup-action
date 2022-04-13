@@ -33,7 +33,6 @@ runs:
     run: |
       whoami
       sudo -l
-      ls -al /var /usr/local
 
   - name: Install docker-setup
     shell: bash
@@ -52,7 +51,7 @@ runs:
           --output /usr/local/bin/docker-setup
       chmod +x /usr/local/bin/docker-setup
 
-      docker-setup --version
+      sudo docker-setup --version
 
   - name: Install tools
     env:
@@ -61,7 +60,7 @@ runs:
       tags: ${{ inputs.check }}
     shell: bash
     run: |
-      docker-setup ${{ inputs.list }}
+      sudo docker-setup ${{ inputs.list }}
 
   - name: Check installed tools
     if: ${{ inputs.check }}
@@ -71,4 +70,4 @@ runs:
       tags: ${{ inputs.check }}
     shell: bash
     run: |
-      docker-setup ${{ inputs.list }}
+      sudo docker-setup ${{ inputs.list }}
