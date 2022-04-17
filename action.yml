@@ -59,6 +59,7 @@ runs:
   - name: Install tools
     env:
       no_wait: "true"
+      no_progressbar: "true"
       only: ${{ inputs.only }}
       tags: ${{ inputs.check }}
       TERM: xterm
