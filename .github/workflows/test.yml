@@ -8,14 +8,14 @@ on:
 jobs:
 
   test-full:
-    name: Test
+    name: Test full installation
     runs-on: ubuntu-20.04
     steps:
       - name: Install
         uses: nicholasdille/docker-setup-action@main
 
   test-only:
-    name: Test
+    name: Test only
     runs-on: ubuntu-20.04
     steps:
       - name: Install
@@ -25,7 +25,7 @@ jobs:
           list: "docker yq"
 
   test-version:
-    name: Test
+    name: Test version
     runs-on: ubuntu-20.04
     steps:
       - name: Install
