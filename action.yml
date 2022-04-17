@@ -54,7 +54,7 @@ runs:
           --output /usr/local/bin/docker-setup
       chmod +x /usr/local/bin/docker-setup
 
-      sudo docker-setup --version
+      sudo -E docker-setup --version
 
   - name: Install tools
     env:
@@ -65,7 +65,7 @@ runs:
       cgroup_version: v1
     shell: bash
     run: |
-      sudo docker-setup ${{ inputs.list }}
+      sudo -E docker-setup ${{ inputs.list }}
 
   - name: Check installed tools
     if: ${{ inputs.check }}
@@ -77,4 +77,4 @@ runs:
       cgroup_version: v1
     shell: bash
     run: |
-      sudo docker-setup ${{ inputs.list }}
+      sudo -E docker-setup ${{ inputs.list }}
