@@ -6,12 +6,31 @@ on:
       - main
 
 jobs:
-  test:
+
+  test-full:
+    name: Test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install
+        uses: nicholasdille/docker-setup-action@main
+
+  test-only:
     name: Test
     runs-on: ubuntu-20.04
     steps:
       - name: Install
         uses: nicholasdille/docker-setup-action@main
         with:
+          only: true
+          list: "docker yq"
+
+  test-version:
+    name: Test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install
+        uses: nicholasdille/docker-setup-action@main
+        with:
+          version: 1.4.3
           only: true
           list: "docker yq"
