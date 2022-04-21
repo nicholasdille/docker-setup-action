@@ -13,6 +13,12 @@ jobs:
     steps:
       - name: Install
         uses: nicholasdille/docker-setup-action@main
+      - name: Store logs
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: logs-full.zip
+          path: /var/log/**
 
   test-only:
     name: Test only
@@ -23,6 +29,12 @@ jobs:
         with:
           only: true
           list: "docker yq"
+      - name: Store logs
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: logs-only.zip
+          path: /var/log/**
 
   test-version:
     name: Test version
@@ -34,3 +46,9 @@ jobs:
           version: 1.3.14
           only: true
           list: "docker yq"
+      - name: Store logs
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: logs-version.zip
+          path: /var/log/**
