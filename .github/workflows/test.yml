@@ -18,7 +18,7 @@ jobs:
         if: always()
         with:
           name: logs-full.zip
-          path: /var/log/**
+          path: /var/log/docker-setup/**
 
   test-only:
     name: Test only
@@ -34,7 +34,7 @@ jobs:
         if: always()
         with:
           name: logs-only.zip
-          path: /var/log/**
+          path: /var/log/docker-setup/**
 
   test-version:
     name: Test version
@@ -51,4 +51,4 @@ jobs:
         if: always()
         with:
           name: logs-version.zip
-          path: /var/log/**
+          path: /var/log/docker-setup/**
