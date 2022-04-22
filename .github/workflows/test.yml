@@ -43,7 +43,7 @@ jobs:
       - name: Install
         uses: nicholasdille/docker-setup-action@main
         with:
-          version: 1.3.14
+          version: 1.5.0-alpha.1
           only: true
           list: "docker yq"
       - name: Store logs
