@@ -28,12 +28,6 @@ runs:
   using: 'composite'
   steps:
 
-  - name: Debug info
-    shell: bash
-    run: |
-      whoami
-      sudo -l
-
   - name: Install docker-setup
     shell: bash
     env:
