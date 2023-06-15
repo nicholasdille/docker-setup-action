@@ -39,5 +39,5 @@ runs:
     shell: bash
     run: |
       echo "Installing tools"
-      docker-setup update
-      docker-setup install ${{ inputs.tools }}
+      sudo docker-setup update
+      sudo docker-setup install ${{ inputs.tools }}
