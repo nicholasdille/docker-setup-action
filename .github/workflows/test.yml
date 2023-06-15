@@ -14,11 +14,19 @@ jobs:
 
     - name: Install
       uses: nicholasdille/docker-setup-action@main
-      with:
-        tools: gojq yq
 
     - name: Test
       run: |
         which docker-setup
         docker-setup --version
-        docker-setup install --installed --plan
+
+    - name: Install
+      uses: nicholasdille/docker-setup-action@main
+      with:
+        cache-dir: /tmp/docker-setup/cache
+        lib-dir: /tmp/docker-setup/lib
+        tools: gojq yq
+
+    - name: Test
+      run: |
+        docker-setup --prefix="" --cache-directory=/tmp/docker-setup/cache --lib-directory=/tmp/docker-setup/lib install --installed --plan

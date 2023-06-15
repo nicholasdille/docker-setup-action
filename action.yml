@@ -1,8 +1,10 @@
 name: 'docker-setup'
+
 description: 'Install tools from the container ecosystem'
 branding:
   icon: 'package'
   color: 'blue'
+
 inputs:
   version:
     description: 'Version of docker-setup to use'
@@ -11,12 +13,24 @@ inputs:
   tools:
     description: 'List of tools to install (space separated)'
     required: false
+  prefix:
+    description: 'Directory prefix for tool installation'
+    required: false
+    default: ''
+  cache-dir:
+    description: 'Directory for caching metadata'
+    required: false
+    default: 'var/cache/docker-setup'
+  lib-dir:
+    description: 'Directory for persistent data'
+    required: false
+    default: 'var/lib/docker-setup'
+
 runs:
   using: 'composite'
   steps:
 
   - name: Install docker-setup
-    shell: bash
     run: |
       echo "Installing docker-setup"
       echo "Requested version ${{ inputs.version }}"
@@ -35,9 +49,16 @@ runs:
 
       docker-setup --version
 
-  - name: Install tools
-    shell: bash
+  - name: Update metadata
     run: |
+      echo "Updating metadata"
+      docker-setup --prefix=${{ inputs.prefix }} --cache-directory=${{ inputs.cache-dir }} --lib-directory=${{ inputs.lib-dir }} update
+
+  - name: Install tools
+    run: |
+      if test -z "${{ inputs.tools }}"; then
+          echo "No tools requested"
+          exit 0
+      fi
       echo "Installing tools"
-      sudo docker-setup update
-      sudo docker-setup install ${{ inputs.tools }}
+      docker-setup --prefix=${{ inputs.prefix }} --cache-directory=${{ inputs.cache-dir }} --lib-directory=${{ inputs.lib-dir }} install ${{ inputs.tools }}
