@@ -3,54 +3,19 @@ name: Tests
 on:
   push:
     branches:
-      - main
+    - main
 
 jobs:
 
-  test-full:
-    name: Test full installation
+  test:
+    name: Test
     runs-on: ubuntu-20.04
     steps:
-      - name: Install
-        uses: nicholasdille/docker-setup-action@main
-        with:
-          version: 1.5.0-alpha.3
-      - name: Store logs
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: logs-full.zip
-          path: /var/log/docker-setup/**
 
-  test-only:
-    name: Test only
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Install
-        uses: nicholasdille/docker-setup-action@main
-        with:
-          only: true
-          list: "docker yq"
-      - name: Store logs
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: logs-only.zip
-          path: /var/log/docker-setup/**
+    - name: Install
+      uses: nicholasdille/docker-setup-action@main
 
-  test-version:
-    name: Test version
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Install
-        uses: nicholasdille/docker-setup-action@main
-        with:
-          version: 1.4.8
-          only: true
-          list: "docker yq"
-      - name: Store logs
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: logs-version.zip
-          path: /var/log/docker-setup/**
+    - name: Test
+      run: |
+        which docker-setup
+        docker-setup --version

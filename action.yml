@@ -8,69 +8,26 @@ inputs:
     description: 'Version of docker-setup to use'
     required: false
     default: 'latest'
-  check:
-    description: 'Check after installation'
-    required: false
-    default: 'false'
-  only:
-    description: 'Only install tools specified by <list>'
-    required: false
-    default: 'false'
-  tags:
-    description: 'Only install tools with tags specified by <list>'
-    required: false
-    default: 'false'
-  list:
-    description: 'Tool names or tags (requires <only> or <tags>)'
-    required: false
-    default: ''
 runs:
   using: 'composite'
   steps:
 
   - name: Install docker-setup
     shell: bash
-    env:
-      TERM: xterm
-      cgroup_version: v1
     run: |
+      echo "Installing docker-setup"
       echo "Requested version ${{ inputs.version }}"
 
-      url="https://github.com/nicholasdille/docker-setup/releases/latest/download/docker-setup.sh"
+      url="https://github.com/nicholasdille/docker-setup/releases/latest/download/docker-setup"
       if test "${{ inputs.version }}" != "latest"; then
-          url="https://github.com/nicholasdille/docker-setup/releases/download/v${{ inputs.version }}/docker-setup.sh"
+          url="https://github.com/nicholasdille/docker-setup/releases/download/v${{ inputs.version }}/docker-setup"
       fi
 
       echo "Using URL ${url}"
-      curl "${url}" \
+      curl --url "${url}" \
           --silent \
           --location \
           --output /usr/local/bin/docker-setup
       chmod +x /usr/local/bin/docker-setup
 
-      sudo -E docker-setup --version
-
-  - name: Install tools
-    env:
-      no_wait: "true"
-      no_progressbar: "true"
-      only: ${{ inputs.only }}
-      tags: ${{ inputs.check }}
-      TERM: xterm
-      cgroup_version: v1
-      docker_max_wait: "600"
-    shell: bash
-    run: |
-      sudo -E docker-setup ${{ inputs.list }}
-
-  - name: Check installed tools
-    if: ${{ inputs.check }}
-    env:
-      check: "true"
-      only: ${{ inputs.only }}
-      tags: ${{ inputs.check }}
-      TERM: xterm
-      cgroup_version: v1
-    shell: bash
-    run: |
-      sudo -E docker-setup ${{ inputs.list }}
+      docker-setup --version
