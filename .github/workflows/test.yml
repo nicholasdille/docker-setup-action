@@ -14,8 +14,11 @@ jobs:
 
     - name: Install
       uses: nicholasdille/docker-setup-action@main
+      with:
+        tools: gojq yq
 
     - name: Test
       run: |
         which docker-setup
         docker-setup --version
+        docker-setup install --installed --plan
