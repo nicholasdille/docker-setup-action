@@ -31,6 +31,7 @@ runs:
   steps:
 
   - name: Install docker-setup
+    shell: bash
     run: |
       echo "Installing docker-setup"
       echo "Requested version ${{ inputs.version }}"
@@ -50,11 +51,13 @@ runs:
       docker-setup --version
 
   - name: Update metadata
+    shell: bash
     run: |
       echo "Updating metadata"
       docker-setup --prefix=${{ inputs.prefix }} --cache-directory=${{ inputs.cache-dir }} --lib-directory=${{ inputs.lib-dir }} update
 
   - name: Install tools
+    shell: bash
     run: |
       if test -z "${{ inputs.tools }}"; then
           echo "No tools requested"
