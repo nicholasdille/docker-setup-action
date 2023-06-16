@@ -23,15 +23,15 @@ jobs:
     - name: Install
       uses: nicholasdille/docker-setup-action@main
       with:
-        prefix: /tmp/docker-setup
+        prefix: helper
         tools: gojq yq
 
     - name: Check installed tools
       run: |
-        docker-setup --prefix=/tmp/docker-setup install --installed --plan
+        docker-setup --prefix=helper install --installed --plan
 
     - name: Test tools
       run: |
-        /tmp/docker-setup/usr/local/bin/gojq --version
-        /tmp/docker-setup/usr/local/bin/jq --version
-        /tmp/docker-setup/usr/local/bin/yq --version
+        helper/usr/local/bin/gojq --version
+        helper/usr/local/bin/jq --version
+        helper/usr/local/bin/yq --version
