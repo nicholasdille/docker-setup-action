@@ -49,6 +49,10 @@ runs:
   - name: Update metadata
     shell: bash
     run: |
+      if test -z "${{inputs.tools }}"; then
+          echo "No tools requested. Metadata update skipped"
+          exit 0
+      fi
       echo "Updating metadata"
       docker-setup --prefix=${{ inputs.prefix }} update
 
