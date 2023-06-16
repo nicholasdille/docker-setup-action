@@ -17,14 +17,10 @@ inputs:
     description: 'Directory prefix for tool installation'
     required: false
     default: ''
-  cache-dir:
-    description: 'Directory for caching metadata'
+  skip-conflicts:
+    description: 'Skip conflicting tools'
     required: false
-    default: 'var/cache/docker-setup'
-  lib-dir:
-    description: 'Directory for persistent data'
-    required: false
-    default: 'var/lib/docker-setup'
+    default: 'true'
 
 runs:
   using: 'composite'
@@ -54,7 +50,7 @@ runs:
     shell: bash
     run: |
       echo "Updating metadata"
-      docker-setup --prefix=${{ inputs.prefix }} --cache-directory=${{ inputs.cache-dir }} --lib-directory=${{ inputs.lib-dir }} update
+      docker-setup --prefix=${{ inputs.prefix }} update
 
   - name: Install tools
     shell: bash
@@ -64,4 +60,4 @@ runs:
           exit 0
       fi
       echo "Installing tools"
-      docker-setup --prefix=${{ inputs.prefix }} --cache-directory=${{ inputs.cache-dir }} --lib-directory=${{ inputs.lib-dir }} install ${{ inputs.tools }}
+      docker-setup --prefix=${{ inputs.prefix }} install --skip-conflicts=${{ inputs.skip-conflicts }} ${{ inputs.tools }}
