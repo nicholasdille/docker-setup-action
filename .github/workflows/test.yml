@@ -15,7 +15,7 @@ jobs:
     - name: Install
       uses: nicholasdille/docker-setup-action@main
 
-    - name: Test
+    - name: Test docker-setup
       run: |
         which docker-setup
         docker-setup --version
@@ -26,6 +26,12 @@ jobs:
         prefix: /tmp/docker-setup
         tools: gojq yq
 
-    - name: Test
+    - name: Check installed tools
       run: |
         docker-setup --prefix=/tmp/docker-setup install --installed --plan
+
+    - name: Test tools
+      run: |
+        gojq --version
+        jq --version
+        yq --version
