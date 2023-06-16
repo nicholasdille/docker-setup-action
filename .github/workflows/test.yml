@@ -32,6 +32,6 @@ jobs:
 
     - name: Test tools
       run: |
-        gojq --version
-        jq --version
-        yq --version
+        /tmp/docker-setup/usr/local/bin/gojq --version
+        /tmp/docker-setup/usr/local/bin/jq --version
+        /tmp/docker-setup/usr/local/bin/yq --version
