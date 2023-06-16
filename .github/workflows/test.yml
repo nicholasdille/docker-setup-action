@@ -23,10 +23,9 @@ jobs:
     - name: Install
       uses: nicholasdille/docker-setup-action@main
       with:
-        cache-dir: /tmp/docker-setup/cache
-        lib-dir: /tmp/docker-setup/lib
+        prefix: /tmp/docker-setup
         tools: gojq yq
 
     - name: Test
       run: |
-        docker-setup --prefix="" --cache-directory=/tmp/docker-setup/cache --lib-directory=/tmp/docker-setup/lib install --installed --plan
+        docker-setup --prefix=/tmp/docker-setup install --installed --plan
