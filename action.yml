@@ -10,6 +10,10 @@ inputs:
     description: 'Version of docker-setup to use'
     required: false
     default: 'latest'
+  path:
+    description: 'Path to install docker-setup into'
+    required: false
+    default: '/usr/local/bin'
   tools:
     description: 'List of tools to install (space separated)'
     required: false
@@ -32,19 +36,18 @@ runs:
       echo "Installing docker-setup"
       echo "Requested version ${{ inputs.version }}"
 
-      url="https://github.com/nicholasdille/docker-setup/releases/latest/download/docker-setup"
+      url="https://github.com/nicholasdille/docker-setup/releases/latest/download/docker-setup_Linux_$(uname -m)"
       if test "${{ inputs.version }}" != "latest"; then
-          url="https://github.com/nicholasdille/docker-setup/releases/download/v${{ inputs.version }}/docker-setup"
+          url="https://github.com/nicholasdille/docker-setup/releases/download/v${{ inputs.version }}/docker-setup_Linux_$(uname -m)"
       fi
 
       echo "Using URL ${url}"
       curl --url "${url}" \
           --silent \
           --location \
-          --output /usr/local/bin/docker-setup
-      chmod +x /usr/local/bin/docker-setup
+          --output ${{ inputs.path }}/docker-setup
 
-      docker-setup --version
+      ${{ inputs.path }}/docker-setup --version
 
   - name: Update metadata
     shell: bash
@@ -54,7 +57,7 @@ runs:
           exit 0
       fi
       echo "Updating metadata"
-      docker-setup --prefix=${{ inputs.prefix }} update
+      ${{ inputs.path }}/docker-setup --prefix=${{ inputs.prefix }} update
 
   - name: Install tools
     shell: bash
@@ -64,4 +67,4 @@ runs:
           exit 0
       fi
       echo "Installing tools"
-      docker-setup --prefix=${{ inputs.prefix }} install --skip-conflicts=${{ inputs.skip-conflicts }} ${{ inputs.tools }}
+      ${{ inputs.path }}/docker-setup --prefix=${{ inputs.prefix }} install --skip-conflicts=${{ inputs.skip-conflicts }} ${{ inputs.tools }}
