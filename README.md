@@ -6,23 +6,23 @@ GitHub Action to run [`docker-setup`](https://github.com/nicholasdille/docker-se
 
 ### `version`
 
-Version of `docker-setup` to use. It can be set to any existing version (e.g. 1.4.8) and defaults to `latest`.
+Version of `docker-setup` to use. It can be set to any existing version (at least 2.2.49) and defaults to `latest`.
 
-### `check`
+### `path`
 
-Whether to check tools after installation. It defaults to `false`.
+Path to install `docker-setup` into. Defaults to `/usr/local/bin`.
 
-### `only`
+### `tools`
 
-Whether to install tools provided by `list`. It defaults to `false`. Mutually exclusive with `tags`.
+Space separated list of tools to install. If this is not empty, the metadata will be updated automatically. Defaults to an empty string.
 
-### `tags`
+### `prefix`
 
-Whether to install tools selected by tags provided in `list`. It defaults to `false`. Mutually exclusive with `only`.
+Directory under which to install tools. Defaults to an empty string.
 
-### `list`
+### `skip-conflicts`
 
-Tool names or tags names to install. Requires `only` or `tags`. Empty by default.
+Skip tools that cause a conflict. Defaults to `true`.
 
 ## Outputs
 
