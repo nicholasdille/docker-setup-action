@@ -36,16 +36,20 @@ runs:
       echo "Installing docker-setup"
       echo "Requested version ${{ inputs.version }}"
 
-      url="https://github.com/nicholasdille/docker-setup/releases/latest/download/docker-setup_Linux_$(uname -m)"
+      release_url="https://github.com/nicholasdille/docker-setup/releases/latest/download"
       if test "${{ inputs.version }}" != "latest"; then
-          url="https://github.com/nicholasdille/docker-setup/releases/download/v${{ inputs.version }}/docker-setup_Linux_$(uname -m)"
+          release_url="https://github.com/nicholasdille/docker-setup/releases/download/v${{ inputs.version }}"
       fi
+      asset_name="docker-setup_Linux_$(uname -m).tar.gz"
 
-      echo "Using URL ${url}"
-      curl --url "${url}" \
+      echo "Using URL ${release_url}"
+      curl --url "${release_url}/${asset_name}" \
           --silent \
           --location \
-          --output ${{ inputs.path }}/docker-setup
+      | tar --extract \
+            --gzip \
+            --directory ${{ inputs.path }} \
+            docker-setup
 
       ${{ inputs.path }}/docker-setup --version
 
