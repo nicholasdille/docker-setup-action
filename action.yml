@@ -25,6 +25,10 @@ inputs:
     description: 'Skip conflicting tools'
     required: false
     default: 'true'
+  log-level:
+    description: 'Log level'
+    required: false
+    default: 'info'
 
 runs:
   using: 'composite'
@@ -61,7 +65,7 @@ runs:
           exit 0
       fi
       echo "Updating metadata"
-      ${{ inputs.path }}/docker-setup --prefix=${{ inputs.prefix }} update
+      ${{ inputs.path }}/docker-setup --log-level=${{ inputs.log-level }} --prefix=${{ inputs.prefix }} update
 
   - name: Install tools
     shell: bash
@@ -71,4 +75,4 @@ runs:
           exit 0
       fi
       echo "Installing tools (${{ inputs.tools }})"
-      ${{ inputs.path }}/docker-setup --prefix=${{ inputs.prefix }} install --skip-conflicts=${{ inputs.skip-conflicts }} ${{ inputs.tools }}
+      ${{ inputs.path }}/docker-setup --log-level=${{ inputs.log-level }} --prefix=${{ inputs.prefix }} install --skip-conflicts=${{ inputs.skip-conflicts }} ${{ inputs.tools }}
