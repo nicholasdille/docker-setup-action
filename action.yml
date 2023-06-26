@@ -25,6 +25,10 @@ inputs:
     description: 'Skip conflicting tools'
     required: false
     default: 'true'
+  plan:
+    description: 'Plan to install'
+    required: false
+    default: 'false'
   log-level:
     description: 'Log level'
     required: false
@@ -66,6 +70,20 @@ runs:
       fi
       echo "Updating metadata"
       ${{ inputs.path }}/docker-setup --log-level=${{ inputs.log-level }} --prefix=${{ inputs.prefix }} update
+
+  - name: Plan installation
+    shell: bash
+    run: |
+      if test -z "${{ inputs.tools }}"; then
+          echo "No tools requested"
+          exit 0
+      fi
+      if test "${{ inputs.plan }}" != "true"; then
+          echo "Not planning installation"
+          exit 0
+      fi
+      echo "Installing tools (${{ inputs.tools }})"
+      ${{ inputs.path }}/docker-setup --log-level=${{ inputs.log-level }} --prefix=${{ inputs.prefix }} install --skip-conflicts=${{ inputs.skip-conflicts }} ${{ inputs.tools }} --plan
 
   - name: Install tools
     shell: bash
