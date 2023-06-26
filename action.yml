@@ -70,5 +70,5 @@ runs:
           echo "No tools requested"
           exit 0
       fi
-      echo "Installing tools"
+      echo "Installing tools (${{ inputs.tools }})"
       ${{ inputs.path }}/docker-setup --prefix=${{ inputs.prefix }} install --skip-conflicts=${{ inputs.skip-conflicts }} ${{ inputs.tools }}
