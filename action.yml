@@ -70,8 +70,6 @@ runs:
       fi
       echo "Updating metadata"
       ${{ inputs.path }}/docker-setup --log-level=${{ inputs.log-level }} --prefix=${{ inputs.prefix }} update
-      echo "Check contents of ${{ inputs.prefix }}"
-      find ${{ inputs.prefix }} -type f
 
   - name: List tools
     shell: bash
