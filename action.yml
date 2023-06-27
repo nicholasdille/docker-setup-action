@@ -50,7 +50,7 @@ runs:
       fi
       asset_name="docker-setup_Linux_$(uname -m).tar.gz"
 
-      echo "Using URL ${release_url}"
+      echo "Using URL ${release_url}/${asset_name}"
       curl --url "${release_url}/${asset_name}" \
           --silent \
           --location \
