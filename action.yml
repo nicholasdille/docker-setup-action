@@ -70,6 +70,14 @@ runs:
       fi
       echo "Updating metadata"
       ${{ inputs.path }}/docker-setup --log-level=${{ inputs.log-level }} --prefix=${{ inputs.prefix }} update
+      echo "Check contents of ${{ inputs.prefix }}"
+      find ${{ inputs.prefix }} -type f
+
+  - name: List tools
+    shell: bash
+    run: |
+      echo "Available tools:"
+      ${{ inputs.path }}/docker-setup --log-level=${{ inputs.log-level }} --prefix=${{ inputs.prefix }} list
 
   - name: Plan installation
     shell: bash
