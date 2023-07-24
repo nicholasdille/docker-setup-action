@@ -2,6 +2,17 @@
 
 GitHub Action to run [`docker-setup`](https://github.com/nicholasdille/docker-setup) and install tools from the container ecosystem.
 
+## Deprecation notice
+
+`docker-setup` is in the process of being renamed to [`uniget`](https://github.com/uniget-org/uniget):
+
+| Component     | Migration status | Support status | Notes |
+| ------------- | ---------------- | ----- | --- |
+| CLI           | Completed        | `docker-setup` will only receive security updates | `uniget` is a drop-in replacement with data migration | - |
+| GitHub Action | Completed        | `docker-setup-action` will only receive security updates | `uniget-action` is a dop-in replacement using `uniget` |
+
+For more information, please refer to [`docker-setup`](https://github.com/nicholasdille/docker-setup).
+
 ## Inputs
 
 ### `version`
